@@ -28,7 +28,7 @@ RUN apt-get update && apt-get install -y --fix-missing \
     libsdl2-ttf-2.0-0
 
 # Copy the compiled binary from the build stage
-COPY --from=build-stage /app/text-to-img /app/text-to-img
+COPY --from=build-stage /app/text-to-bmp /app/text-to-bmp
 
 # Default command to run, assumes to read /app/input.txt and writes to /app/output/
-CMD ["/app/text-to-img", "/app/input.txt"]
+CMD ["/app/text-to-bmp", "/app/input.txt"]
