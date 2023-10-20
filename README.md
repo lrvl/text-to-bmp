@@ -13,3 +13,11 @@ Use cases:
 Provides:
 - Docker container "text-to-bmp"
 - Docker container "plantuml" for the docs
+
+Docs - Overview
+
+![overview](./docs/diagrams/generated/overview.png)
+
+Docs - update_background script
+
+![overview](./docs/diagrams/generated/update_background.png)
