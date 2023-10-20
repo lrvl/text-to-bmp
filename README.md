@@ -4,7 +4,8 @@ Create background image from text file (Journalctl logs)
 Requirements:
 - Linux
 - Docker or Podman
-- feh (image viewer)
+- Optional: feh (image viewer)
+- Optional: picom (compositor for X)
 
 Use cases:
 - Read live updated journalctl logs on your Linux desktop background
