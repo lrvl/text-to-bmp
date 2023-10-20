@@ -8,6 +8,9 @@ Requirements:
 
 Use cases:
 - Read live updated journalctl logs on your Linux desktop background
+
+![example](./docs/examples/Linux-i3wm-example.png)
+
 - Convert textfile to bmp image format
 
 Provides:
