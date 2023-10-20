@@ -1,0 +1,39 @@
+@startuml
+
+title src/update_background.sh: Create background image from Journalctl logs
+
+start
+
+:Extract latest logs to TEXT_FILE;
+note right
+This step extracts the latest 65 log
+entries, excluding those with "sudo["
+in them, and writes them to a temporary
+text file.
+end note
+
+:Convert text to image;
+note right
+Here, a Docker container is run to convert
+the text file into an BMP image. The image is
+saved to OUTPUT_IMAGE.
+end note
+
+:Set image as i3 background using 'feh';
+note right
+The generated image for example is set as the i3 window
+manager's background using the 'feh' tool.
+end note
+
+:Wait for 10 seconds;
+note right
+The script pauses for 10 seconds before
+repeating the process.
+end note
+
+repeat :Check for new logs;
+backward:Repeat;
+
+stop
+
+@enduml

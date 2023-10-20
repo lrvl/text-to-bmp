@@ -1,0 +1,64 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam rectangle {
+    borderColor Black
+    borderWidth 1
+    backgroundColor #FFFFFF
+    FontColor Black
+}
+title High Level Design of Project
+
+left to right direction
+
+package "i3wm" {
+    [config]
+}
+
+package "picom" {
+    [picom.conf]
+}
+
+note "Uses picom & feh to display\njournalctl logs on Linux desktop" as N1
+
+package "Docker" {
+    [Dockerfile-plantuml]
+    [Dockerfile-text-to-bmp]
+    [plantuml-entrypoint.sh]
+}
+
+package "src" {
+    [text-to-bmp.c]
+    [update_background.sh]
+}
+
+note "Converts text to bitmap digital image" as N2
+note as N3
+    exec_always --no-startup-id picom -b
+    exec_always --no-startup-id update_background.sh
+end note
+note as N4
+    Creates two Docker containers
+    make text-to-bmp
+    make docker-plantuml
+end note
+note as N5
+cat ~/.config/picom/picom.conf 
+# Window type settings
+wintypes:
+{
+    normal = { opacity = 0.85; }; # Adjust the opacity of normal windows
+    dropdown_menu = { opacity = 1.0; };
+    popup_menu = { opacity = 1.0; };
+    tooltip = { opacity = 1.0; };
+};
+opacity-rule = ["100:class_g = 'Firefox-esr'"];
+end note
+
+[update_background.sh] --> N1
+[text-to-bmp.c] --> N2
+[config] --> N3
+[Makefile] --> N4
+[picom.conf] --> N5
+
+@enduml
+

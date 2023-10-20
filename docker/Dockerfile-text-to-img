@@ -1,0 +1,34 @@
+# ----- BUILD STAGE -----
+FROM debian:bookworm-slim AS build-stage
+
+# Install necessary packages
+RUN apt-get update && apt-get install -y \
+    libsdl2-dev \
+    libsdl2-ttf-dev \
+    gcc \
+    make \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy the C source code and Makefile
+COPY . /app
+
+# Build the binary
+WORKDIR /app
+RUN make
+
+# ----- DEPLOY STAGE -----
+FROM debian:bookworm-slim AS deploy-stage
+
+# Hide message
+ENV XDG_RUNTIME_DIR=/tmp
+
+# Install necessary packages
+RUN apt-get update && apt-get install -y --fix-missing \
+    libsdl2-2.0-0 \
+    libsdl2-ttf-2.0-0
+
+# Copy the compiled binary from the build stage
+COPY --from=build-stage /app/text-to-img /app/text-to-img
+
+# Default command to run, assumes to read /app/input.txt and writes to /app/output/
+CMD ["/app/text-to-img", "/app/input.txt"]
