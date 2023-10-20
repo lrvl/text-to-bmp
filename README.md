@@ -7,6 +7,13 @@ Requirements:
 - Optional: feh (image viewer)
 - Optional: picom (compositor for X)
 
+### To build:
+
+```
+$ make docker-text-to-bmp
+$ make docker-plantuml
+```
+
 Use cases:
 - Read live updated journalctl logs on your Linux desktop background
 
